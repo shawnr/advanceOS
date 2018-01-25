@@ -24,7 +24,7 @@
     </v-navigation-drawer>
     <v-toolbar
       app
-      class="purple"
+      class="purple white--text"
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
@@ -35,7 +35,7 @@
       <router-view/>
     </v-content>
 
-    <v-footer fixed app class="purple">
+    <v-footer fixed app class="purple white--text">
       <span>AdvanceOS v0.1</span>
     </v-footer>
   </v-app>
@@ -48,12 +48,23 @@ export default {
       drawer: false,
       items: [{
         icon: 'bubble_chart',
-        title: 'Inspire'
+        title: 'Applications'
+      },
+      {
+        icon: 'timelapse',
+        title: 'Clock In/Out'
       }],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'AdvanceOS Employee Interface'
+      title: 'AdvanceOS Employee Interface',
+      user: null
+    }
+  },
+  created () {
+    this.user = this.$ls.get('loggedInUser', null);
+    if (this.user) {
+      this.title = `AdvanceOS Employee Interface: ${this.user.firstName} ${this.user.lastName}`;
     }
   },
   name: 'App'
